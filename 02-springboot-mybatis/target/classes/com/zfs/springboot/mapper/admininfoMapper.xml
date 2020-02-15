@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zfs.springboot.mapper.admininfoMapper">
+  <resultMap id="BaseResultMap" type="com.zfs.springboot.model.admininfo">
+    <id column="aid" jdbcType="INTEGER" property="aid" />
+    <result column="aname" jdbcType="VARCHAR" property="aname" />
+    <result column="apwd" jdbcType="VARCHAR" property="apwd" />
+    <result column="alevel" jdbcType="VARCHAR" property="alevel" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    aid, aname, apwd, alevel
+  </sql>
+
+  <select id="selectAllAdmin" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from admininfo
+  </select>
+
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from admininfo
+    where aid = #{aid,jdbcType=INTEGER}
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+      delete from admininfo
+      where aid = #{aid,jdbcType=INTEGER}
+    </delete>
+
+  <insert id="insert" parameterType="com.zfs.springboot.model.admininfo">
+    insert into admininfo (aid, aname, apwd,
+      alevel)
+    values (#{aid,jdbcType=INTEGER}, #{aname,jdbcType=VARCHAR}, #{apwd,jdbcType=VARCHAR},
+      #{alevel,jdbcType=VARCHAR})
+  </insert>
+
+  <insert id="insertSelective" parameterType="com.zfs.springboot.model.admininfo">
+    insert into admininfo
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="aid != null">
+        aid,
+      </if>
+      <if test="aname != null">
+        aname,
+      </if>
+      <if test="apwd != null">
+        apwd,
+      </if>
+      <if test="alevel != null">
+        alevel,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="aid != null">
+        #{aid,jdbcType=INTEGER},
+      </if>
+      <if test="aname != null">
+        #{aname,jdbcType=VARCHAR},
+      </if>
+      <if test="apwd != null">
+        #{apwd,jdbcType=VARCHAR},
+      </if>
+      <if test="alevel != null">
+        #{alevel,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+
+  <update id="updateByPrimaryKeySelective" parameterType="com.zfs.springboot.model.admininfo">
+    update admininfo
+    <set>
+      <if test="aname != null">
+        aname = #{aname,jdbcType=VARCHAR},
+      </if>
+      <if test="apwd != null">
+        apwd = #{apwd,jdbcType=VARCHAR},
+      </if>
+      <if test="alevel != null">
+        alevel = #{alevel,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where aid = #{aid,jdbcType=INTEGER}
+  </update>
+
+  <update id="updateByPrimaryKey" parameterType="com.zfs.springboot.model.admininfo">
+    update admininfo
+    set aname = #{aname,jdbcType=VARCHAR},
+      apwd = #{apwd,jdbcType=VARCHAR},
+      alevel = #{alevel,jdbcType=VARCHAR}
+    where aid = #{aid,jdbcType=INTEGER}
+  </update>
+
+</mapper>
